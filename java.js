@@ -1,7 +1,7 @@
 
+// Set Standart
 
-
-let mona = 11; //monat
+let mona = 5; //monat
 let mo = mona -1;
 let jahr = 2022; //jar
 let teilne = "Manuel Martinez Cerecedo"; //name
@@ -9,36 +9,100 @@ let kunden_nr = 123456789; //kunden-nr.
 let prakti = "Super Firma"; // Firmenname
 let anf = 9; // Arbeitsanfang
 let ende = 17; // Arbeitsende
-document.getElementById('teil').value = teilne
-document.getElementById('kundennr').value = kunden_nr
-document.getElementById('Praktikumsstelle').value = prakti
-document.getElementById('monat').value = mona + ' / ' + jahr
-    <!--    bau das arry-->
+let tag = 6;
 
-function gdm(year, month) {
-    return new Date(year, month, 0).getDate();
+
+function setkopfseile(teilne, kunden_nr, prakti, mona, jahr)  {
+    document.getElementById('teil').value = teilne;
+    document.getElementById('kundennr').value = kunden_nr;
+    document.getElementById('Praktikumsstelle').value = prakti;
+    document.getElementById('monat').value = mona + ' / ' + jahr;
+        }
+
+
+
+
+class Datensatz{
+    constructor( jahr, mona, tag, anf, ende ) {
+        this.anf = anf;
+        this.ende = ende;
+        this.tag = tag;
+        this.jahr = jahr;
+        this.mona = mona;
+        this.day = new Date(jahr, mona-1, tag, anf);
+    }
+    sam_son_feir(){
+        if (this.day.getDay() == 6 || this.day.getDay() == 0 ) {
+            this.uhr1 = '-' ;
+            this.uhr2 = '-' ;
+
+
+
+        } else {
+            this.uhr1 = this.day.getHours() + ':00'  ;
+            this.uhr2 = this.ende +  ':00' ;
+
+        }
+    }
+    datensatz(){
+
+        this.sam_son_feir()
+        let htmlstring = '<tr onclick="menu_safe(this)">'
+            htmlstring = '<td onclick="menu_safe()" >'+ this.tag +'</td>';
+            htmlstring += '<td>'+ this.uhr1 + '</td>';
+            htmlstring += '<td>'+'-'+'</td>';
+            htmlstring += '<td>'+ this.uhr2 +'</td>';
+            htmlstring += '<td>'+ (ende - anf) + '</td>';
+            htmlstring += '<td>'+ '<input type="textarea" >' +'</td>';
+            htmlstring += '<td>'+ 'BBQ ' +'</td>';
+            htmlstring += '</tr>'
+
+        document.getElementById("tab").innerHTML += htmlstring
+
+
 }
+}
+// function daten(jahr, mona, tag, anf, ende){
+//
+//     let tets = new Datensatz ( jahr, mona, tag, anf, ende );
+//     tets.datensatz()
+//     console.log(tets);
+// }
 
-let dim = gdm(jahr, mona);
-const sql_data1 = [];
+// <!--    bau das arry-->
+function setdates(jahr, mona, anf, ende){
+
+    let dim = new Date(jahr, mona, 0).getDate();
+    const my_list = [];
+    for (let i = 1; i <= dim; i++) {
+        my_list.push(new Datensatz(jahr, mona, i, anf, ende))
+    }
 
 
-for (let i = 0; i < dim; i++) {
+    return my_list
+    }
+function create_table (jahr, mona, tag, anf, ende){
+    for (let x of setdates(jahr,mona,anf,ende)) {
+        x.datensatz();
 
-    let astart = new Date(jahr,mo,i+1,anf,0);
-    let aende = new Date(jahr,mo,i+1,ende,0);
-    let zst = aende.getHours()-astart.getHours();
-    console.log(astart)
-
-    if (astart.getDay() == 6 || astart.getDay() == 0 ){
-
-        sql_data1.push(['>'+(i+1),'><input class="s2" value="-">',' class = "minus">-', '><input class="s4" type="text" value="-"','>-','><input class="intable" type="text">','><input class="intable2" type="text">']);
-
-    } else {
-        sql_data1.push(['>'+(i + 1),'><input class="s2" type="text" value="' + astart.getHours() + ':00"', ' class = "minus">-', '><input class="s4" type="text" value="' + aende.getHours() + ':00"','>'+ zst, '><input class="intable"  type="text">', '><input class="intable2"  type="text">']);
     }
 }
-console.log(sql_data1)
+function start(){
+    setkopfseile(teilne, kunden_nr, prakti, mona, jahr)
+    create_table (jahr, mona, tag, anf, ende)
+}
+
+function menu_safe(){
+    alert(event.target.innerHTML)
+    let changebox = '<div>'
+        changebox += '<button>Edit</button>'
+        changebox += '</div>'
+
+
+    event.target.innerHTML += changebox
+}
+/*
+
 
 
 //bau Tabelle
@@ -52,4 +116,4 @@ for (let i = 0; i < dim; i++) {
 
     }
 }
-
+*/
