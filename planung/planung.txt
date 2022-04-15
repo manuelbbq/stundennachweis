@@ -1,0 +1,38 @@
+Planung Stundennachweis
+Lastenheft: (enthält die Aufgabenstellung, was gemacht werden soll)
+            (der Inhalt soll SMART-Kriterien erfüllen)
+Vorlage pixelgenau erstellen, Felder eingebbar, änderbar machen
+Eingabefelder unsichtbar erstellen und
+Daten die automatisch erstellt werden können automaisch erzeugen lassen
+Fertigstellung in der Woche nach Ostern.
+
+
+
+
+
+
+
+nice to have :Daten speichern und wiederherstellen
+
+funktionale Anforderungen:
+pro Monat 1 Seite
+Daten müssen hinterlegt werden: Name des Teilnehmers, Monat, Jahr, Kundennummer,
+Arbeitsbeginn und -ende, Feiertage von Sept bis Ende des Folgejahres in Berlin, Praktikumsstelle
+Für jeden Monat: Erstellen und Anzeige der 4 Kopfdaten, ausfüllen von Mo-Fr: Arbeitsbeginn, Arbeitsende,
+Zeitstunden, sofern es ein Arbeitstag war. Ausdruck muss möglich sein.
+
+nicht-funktionale Anforderung:
+Seite muss innerhalb 1 Sekunde mit allen Daten angezeigt werden
+Seite muss ausgedruckt werden können
+
+
+Pflichtenheft:
+Arbeitsumgebung für Webseite einrichten, Versionsverwaltung einsetzen, Hintergrund pdf als
+Hintergrundbild mit richtiger Größe einbinden. Ausgabegöße testen, Config-Datei einbinden,
+Kopfdaten automatisch füllen als nicht änderbarer Eintrag, Berechnung von Arbeitstagen, abhängig vom Monat/Jahr/Feiertag;
+Eintragsfelder richtig positionieren und Länge anpassen, potentielle Eingabefelder positionieren,
+jeweils passende Schrift wählen Ausdruck an gewünschte größe anpassen.
+
+
+Umsetzung: Blattgröße festlegen
+
