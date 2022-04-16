@@ -1,103 +1,112 @@
 
-        body{
-            width: 18cm;
-            padding-right: 2cm;
-            padding-left: 2cm;
-            padding-top: 1cm;
-        }
-        #kopf{
-            width: 18cm;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            margin-right: 10px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            background-color: rgb(243,243,243);
-        }
-        #kopftable{
-            border-style: none;
-            width: 18cm;
-            margin-right: 0px;
+    body{
+        width: 18cm;
+        padding-right: 2cm;
+        padding-left: 2cm;
+        padding-top: 1cm;
+    }
+    #menus {
+          position: absolute;
+          background: lightgray;
+          height: 5cm;
+          width: 10cm;
+          left: 8cm;
+          top: 10cm;
+        display: none;
+    }
+    #kopf{
+        width: 18cm;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        background-color: rgb(243,243,243);
+    }
+    #kopftable{
+        border-style: none;
+        width: 18cm;
+        margin-right: 0px;
 
-        }
-        .kopft{
-            border-style: none;
-        }
-
-
-
-        #tab{
-            width: 18cm;
-            margin-right: 0px;
-        }
-        input{
-            border: 0
-        }
-        #tab, th, td {
-            border: 1px ;
-            border-style: dotted;
-            border-bottom-color: rgb(243,243,243);
-            border-collapse: collapse;
-        }
-        td{
-            text-align: left;
-            padding-left: 8px;
-        }
-        th {
-            background-color: rgb(243,243,243);
-            text-align: left;
-            padding-left: 8px;
-        }
-        .minus {
-            text-align: center;
-            padding: 0px;
-        }
-        .s1{
-            width: 1cm;
-        }
-        .s2{
-            width: 2.5cm;
-        }
-        .s3{
-            width: 0.5cm;
-        }
-        .s4{
-            width: 2.5cm;
-        }
-        .s5{
-            width: 2.2cm;
-        }
-        .s6, .intable{
-            width: 3.3cm;
-
-        }
-        .s7, .intable2 {
-            width: 4cm;
-
-        }
+    }
+    .kopft{
+        border-style: none;
+    }
 
 
 
-        #fo{
-            color: white;
-            background-color: rgb(7,83,153);
-            padding-left: 3px;
-            padding-right: 3px;
-            margin-right: 5px;
-        }
-        #unterschrift{
-            float: right;
-            margin-top: 10px;
-        }
-        #sma{
-            width: 6cm;
-            font-size: 10px;
-            text-align: center;
-            display: block;
-        }
-        #graufeld{
-            width: 6cm;
-            height: 1.5cm;
-            background-color: rgb(243,243,243);
-            display: block;
-        }
+    #tab{
+        width: 18cm;
+        margin-right: 0px;
+    }
+    input{
+        border: 0
+    }
+    #tab, th, td {
+        border: 1px ;
+        border-style: dotted;
+        border-bottom-color: rgb(243,243,243);
+        border-collapse: collapse;
+    }
+    td{
+        text-align: left;
+        padding-left: 8px;
+    }
+    th {
+        background-color: rgb(243,243,243);
+        text-align: left;
+        padding-left: 8px;
+    }
+    .minus {
+        text-align: center;
+        padding: 0px;
+    }
+    .s1{
+        width: 1cm;
+    }
+    .s2{
+        width: 2.5cm;
+    }
+    .s3{
+        width: 0.5cm;
+    }
+    .s4{
+        width: 2.5cm;
+    }
+    .s5{
+        width: 2.2cm;
+    }
+    .s6, .intable{
+        width: 3.3cm;
+
+    }
+    .s7, .intable2 {
+        width: 4cm;
+
+    }
+
+
+
+    #fo{
+        color: white;
+        background-color: rgb(7,83,153);
+        padding-left: 3px;
+        padding-right: 3px;
+        margin-right: 5px;
+    }
+    #unterschrift{
+        float: right;
+        margin-top: 10px;
+    }
+    #sma{
+        width: 6cm;
+        font-size: 10px;
+        text-align: center;
+        display: block;
+    }
+    #graufeld{
+        width: 6cm;
+        height: 1.5cm;
+        background-color: rgb(243,243,243);
+        display: block;
+    }
