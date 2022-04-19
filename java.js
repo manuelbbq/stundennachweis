@@ -1,15 +1,13 @@
 
 // Set Standart
 
-let mona = 4; //monat
-let mo = mona -1;
-let jahr = 2023; //jar
+let mona = 9; //monat
+let jahr = 2022; //jar
 let teilne = "Manuel Martinez Cerecedo"; //name
 let kunden_nr = 123456789; //kunden-nr.
 let prakti = "Super Firma"; // Firmenname
-let anf = 9; // Arbeitsanfang
-let ende = 17; // Arbeitsende
-let tag = 6;
+let anf = "09:00"; // Arbeitsanfang
+let ende = "17:00"; // Arbeitsende
 const my_list = [];
 
 function setkopfseile(teilne, kunden_nr, prakti, mona, jahr)  {
@@ -23,27 +21,33 @@ function setkopfseile(teilne, kunden_nr, prakti, mona, jahr)  {
 
 
 class Datensatz{
-    constructor( jahr, mona, tag, anf, ende, bem='', bembbq = '' ) {
+    constructor( jahr, mona, tag, anf, ende, bem='') {
         this.anf = anf;
         this.ende = ende;
         this.tag = tag;
         this.jahr = jahr;
         this.mona = mona;
-
         this.bem = bem;
-        this.bembbq = bembbq;
-        this.set_an_ende()
+        this.set_an_ende();
+        this.feiertag = this.sam_son_feir();
+
+
+        // this.sam_son_feir()
         this.set_zeitstunden();
-        this.sam_son_feir()
+
     }
     set_an_ende(){
-        this.day = new Date(this.jahr, this.mona-1, this.tag, this.anf)
-        this.day_end = new Date(this.jahr, this.mona-1, this.tag, this.ende);
+        console.log(this.anf.slice(-2,))
+        this.day = new Date( this.jahr, this.mona -1, this.tag , this.anf.slice(0,2),this.anf.slice(-2,))
+        this.day_end = new Date(this.jahr, this.mona -1, this.tag , this.ende.slice(0,2),this.ende.slice(-2,));
     }
     set_zeitstunden(){
-        let milli = this.day_end - this.day - 3600000
-
-         this.zeitstunden = new Date(milli).toTimeString().split(' ')[0].slice(0,5);
+        if (this.feiertag== false) {
+            let milli = this.day_end - this.day - 3600000
+            this.zeitstunden = new Date(milli).toTimeString().split(' ')[0].slice(0, 5);
+        } else {
+            this.zeitstunden = '-'
+        }
     }
 
     sam_son_feir(){
@@ -62,7 +66,7 @@ class Datensatz{
         }
         for (let x of jahr) {
 
-            fdate.push(new Date(year,x[1]-1, (x[0]), anf))
+            fdate.push(new Date(year, x[1]-1, (x[0]), this.anf.slice(0,2),this.anf.slice(-1,-3)));
         }
 
         let feier = false;
@@ -73,52 +77,82 @@ class Datensatz{
             if (x.valueOf() == this.day.valueOf()) {
                 feier = true;
                 this.bem = 'feiertag'
+                return true
 
             }
 
         }
 
         if (this.day.getDay() == 6 || this.day.getDay() == 0 || feier == true) {
-            this.uhr1 = '-' ;
-            this.uhr2 = '-' ;
-
-
+            // this.uhr1 = '-' ;
+            // this.uhr2 = '-' ;
+            return true
 
         } else {
-            this.uhr1 = this.day.toTimeString().split(' ')[0].slice(0, 5) ;
-            this.uhr2 = this.day_end.toTimeString().split(' ')[0].slice(0, 5) ;
+            // this.uhr1 = this.day.toTimeString().split(' ')[0].slice(0, 5) ;
+            // this.uhr2 = this.day_end.toTimeString().split(' ')[0].slice(0, 5) ;
+            return false
 
         }
 
     }
     change_my_list(){
-        // let anf = document.getElementById("menu_anf").value
-        // let hhmm = this.st_min(anf);
-        // this.day.setHours(hhmm[0],hhmm[1]);
-        // let hhmm = this.st_min(end)
-        let val = document.getElementById("menu_anf").value;
-        console.log(val)
-        this.set_time(val, this.day);
-        let val_2 = document.getElementById("menu_end").value;
-        this.set_time(val_2, this.day_end);
-        this.set_zeitstunden()
+        this.anf = document.getElementById('menu_anf').value;
+        console.log(this.anf)
+        // this.uhr1 = document.getElementById('menu_anf').value;
+        this.ende = document.getElementById('menu_end').value;
+        // this.uhr2 = document.getElementById('menu_end').value;
+        this.bem = document.getElementById('menu_bem').value;
+        this.feiertag = false;
+        this.set_an_ende();
+        this.set_zeitstunden();
 
-        this.bem =  document.getElementById("menu_bem").value;
-        create_table();
         console.log(my_list);
-        document.getElementById('menus').style.display = 'none';
+
+
+
+
+
+
+
+
+
+        // // let anf = document.getElementById("menu_anf").value
+        // // let hhmm = this.st_min(anf);
+        // // this.day.setHours(hhmm[0],hhmm[1]);
+        // // let hhmm = this.st_min(end)
+        // let val = document.getElementById("menu_anf").value;
+        // console.log(val)
+        // this.set_time(val, this.day);
+        // let val_2 = document.getElementById("menu_end").value;
+        // this.set_time(val_2, this.day_end);
+        // this.set_zeitstunden()
+        //
+        // this.bem =  document.getElementById("menu_bem").value;
+        // create_table();
+        // console.log(my_list);
+         document.getElementById('menus').style.display = 'none';
     }
 
     datensatz(){
-
+        let uhr1 , uhr2 , stunden ;
+        if (this.feiertag == true){
+            uhr1 = '-';
+            uhr2 = '-';
+            stunden = "-";
+        } else {
+             uhr1 = this.day.toTimeString().slice(0, 5);
+             uhr2 = this.day_end.toTimeString().slice(0, 5);
+             stunden = this.zeitstunden
+        }
 
         let htmlstring = '<tr>';
             htmlstring += '<td onclick="menu_safe()" >'+ this.tag +'</td>';
-            htmlstring += '<td id="beginn'+ this.tag +'">'+ this.uhr1 + '</td>';
+            htmlstring += '<td id="beginn'+ this.tag +'">'+ uhr1 + '</td>';
             htmlstring += '<td>'+'-'+'</td>';
-            htmlstring += '<td id="ende'+ this.tag +'">'+ this.uhr2 +'</td>';
-            htmlstring += '<td>'+ this.zeitstunden + '</td>';
-            htmlstring += '<td id="bemer'+ this.tag +'">' + this.bem + '</td>';
+            htmlstring += '<td id="ende'+ this.tag +'">'+ uhr2 +'</td>';
+            htmlstring += '<td>'+ stunden + '</td>';
+            htmlstring += '<td id="bemer'+ this.tag +'" class="s6">' + this.bem + '</td>';
             htmlstring += '<td>'+ ' ' +'</td>';
             htmlstring += '</tr>'
         document.getElementById("tab").innerHTML += htmlstring
@@ -151,7 +185,7 @@ function setdates(jahr, mona, anf, ende){
 
     // return my_list
     }
-function create_table (jahr, mona, tag, anf, ende){
+function create_table (){
     // document.getElementById("tab").innerHTML= ""
     let htmlstring = '<tr>';
     htmlstring += '<th className="s1">Tag</th>';
@@ -172,20 +206,25 @@ function create_table (jahr, mona, tag, anf, ende){
 function start(){
     setkopfseile(teilne, kunden_nr, prakti, mona, jahr)
     setdates(jahr,mona,anf,ende)
-    create_table (jahr, mona, tag, anf, ende)
+    create_table ()
     console.log(my_list)
 }
-
+function chan(zeile){
+    my_list[(zeile)].change_my_list();
+    create_table();
+}
 function menu_safe(){
     document.getElementById('menus').style.display = 'block';
     let zeile =  event.target.innerHTML ;
-    let id_b = my_list[zeile-1].uhr1;
-    let id_e = my_list[zeile-1].uhr2;
+    let id_b = my_list[zeile-1].anf;
+    let id_e = my_list[zeile-1].ende;
     let id_bem = my_list[zeile-1].bem;
-
-    let htmlstring = '<table><tr>';
+    let id_day = my_list[zeile - 1].day.toDateString();
+    console.log(id_day);
+    let htmlstring = '<h1>'+ id_day +'</h1>';
+        htmlstring += '<table><tr>';
         htmlstring += '<th>Beginn</th>';
-        htmlstring += '<th>ENde</th></tr>';
+        htmlstring += '<th>Ende</th></tr>';
         htmlstring += '<tr>';
         htmlstring += '<td><input id="menu_anf" type="time" value="'+ id_b +'"></td>';
         htmlstring += '<td><input id="menu_end" type="time" value="'+ id_e +'"></td>';
@@ -195,26 +234,16 @@ function menu_safe(){
         htmlstring += '<td ><input type="text" id="menu_bem" value="'+ id_bem + '" ></td>';
         htmlstring += '</tr>'
         htmlstring += '</tr></table>';
-        htmlstring += '<input type="button" onclick="my_list[' + (zeile-1) + '].change_my_list()" value="save">';
+        htmlstring += '<input type="button" onclick="chan(' + (zeile-1) + ')" value="save">';
+        htmlstring += '<input type="button" onclick="document.getElementById(\'menus\').style.display = \'none\';" value="cancel">';
 
     // console.log(my_list);<td>
     document.getElementById("menus").innerHTML = htmlstring;
 
 }
 
-/*
 
 
 
-//bau Tabelle
-for (let i = 0; i < dim; i++) {
-    // const sql_data = [[i,"10",'3'],["test",'safsdf','safdsfs',]]
-    document.getElementById("tab").innerHTML += '<tr id="row'+i+'"></tr>';
-    for (let x of sql_data1[i]) {
-        let row = "row"+i;
-        // alert(x)
-        document.getElementById(row).innerHTML += '<td' + x + '</td>'
 
-    }
-}
-*/
+

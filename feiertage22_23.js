@@ -5,7 +5,7 @@ for (let x of feier_22) {
 
     fdate.push(new Date(2022,x[1]-1, (x[0]), 12))
 }
-check = new Date(2022, 0 ,1,12)
+check = new Date('2022-10-10-08:30')
 for (let x of fdate) {
     console.log(x);
     if(x.valueOf() == check.valueOf()){
