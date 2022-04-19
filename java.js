@@ -1,9 +1,9 @@
 
 // Set Standart
 
-let mona = 5; //monat
+let mona = 4; //monat
 let mo = mona -1;
-let jahr = 2022; //jar
+let jahr = 2023; //jar
 let teilne = "Manuel Martinez Cerecedo"; //name
 let kunden_nr = 123456789; //kunden-nr.
 let prakti = "Super Firma"; // Firmenname
@@ -29,19 +29,56 @@ class Datensatz{
         this.tag = tag;
         this.jahr = jahr;
         this.mona = mona;
-        this.day = new Date(jahr, mona-1, tag, anf)
-        this.day_end = new Date(jahr, mona-1, tag, ende);
+
         this.bem = bem;
         this.bembbq = bembbq;
+        this.set_an_ende()
+        this.set_zeitstunden();
+        this.sam_son_feir()
+    }
+    set_an_ende(){
+        this.day = new Date(this.jahr, this.mona-1, this.tag, this.anf)
+        this.day_end = new Date(this.jahr, this.mona-1, this.tag, this.ende);
     }
     set_zeitstunden(){
         let milli = this.day_end - this.day - 3600000
-        console.log(new Date(milli-3600000));
+
          this.zeitstunden = new Date(milli).toTimeString().split(' ')[0].slice(0,5);
     }
 
     sam_son_feir(){
-        if (this.day.getDay() == 6 || this.day.getDay() == 0 ) {
+        const feier_22 = [[1,1],[8,3],[15,4],[17,4],[18,4],[1,5],[26,5],[6,6],[3,10],[25,12],[26,12]];
+        const feier_23 = [[1,1],[7,4],[9,4],[10,4],[1,5],[18,5],[29,5],[3,10],[25,12],[26,12]];
+        let jahr = [];
+        let year ;
+        let fdate = [];
+        if (this.day.getFullYear() == 2022){
+            jahr = feier_22;
+            year = 2022;
+
+        } else if ( this.day.getFullYear() == 2023){
+             jahr = feier_23;
+             year = 2023;
+        }
+        for (let x of jahr) {
+
+            fdate.push(new Date(year,x[1]-1, (x[0]), anf))
+        }
+
+        let feier = false;
+        for (let x of fdate) {
+
+
+
+            if (x.valueOf() == this.day.valueOf()) {
+                feier = true;
+                this.bem = 'feiertag'
+
+            }
+
+        }
+
+        if (this.day.getDay() == 6 || this.day.getDay() == 0 || feier == true) {
             this.uhr1 = '-' ;
             this.uhr2 = '-' ;
 
@@ -60,6 +97,7 @@ class Datensatz{
         // this.day.setHours(hhmm[0],hhmm[1]);
         // let hhmm = this.st_min(end)
         let val = document.getElementById("menu_anf").value;
+        console.log(val)
         this.set_time(val, this.day);
         let val_2 = document.getElementById("menu_end").value;
         this.set_time(val_2, this.day_end);
@@ -72,15 +110,15 @@ class Datensatz{
     }
 
     datensatz(){
-        this.set_zeitstunden();
-        this.sam_son_feir();
-        let htmlstring = '<tr>'
-            htmlstring = '<td onclick="menu_safe()" >'+ this.tag +'</td>';
+
+
+        let htmlstring = '<tr>';
+            htmlstring += '<td onclick="menu_safe()" >'+ this.tag +'</td>';
             htmlstring += '<td id="beginn'+ this.tag +'">'+ this.uhr1 + '</td>';
             htmlstring += '<td>'+'-'+'</td>';
             htmlstring += '<td id="ende'+ this.tag +'">'+ this.uhr2 +'</td>';
             htmlstring += '<td>'+ this.zeitstunden + '</td>';
-            htmlstring += '<td>' + this.bem + '</td>';
+            htmlstring += '<td id="bemer'+ this.tag +'">' + this.bem + '</td>';
             htmlstring += '<td>'+ ' ' +'</td>';
             htmlstring += '</tr>'
         document.getElementById("tab").innerHTML += htmlstring
@@ -115,6 +153,17 @@ function setdates(jahr, mona, anf, ende){
     }
 function create_table (jahr, mona, tag, anf, ende){
     // document.getElementById("tab").innerHTML= ""
+    let htmlstring = '<tr>';
+    htmlstring += '<th className="s1">Tag</th>';
+    htmlstring += '<th className="s2">Arbeitsbeginn</th>';
+    htmlstring += '<th className="s3"></th>';
+    htmlstring += '<th className="s4">Arbeitsende</th>';
+    htmlstring += '<th className="s5">Zeitstunden</th>';
+    htmlstring += '<th className="s6">Bemerkung</th>';
+    htmlstring += '<th className="s7">Vermerk durch BBQ</th>';
+    htmlstring += '</tr>';
+    document.getElementById("tab").innerHTML = htmlstring
+
     for (let x of my_list) {
         x.datensatz();
 
@@ -124,14 +173,15 @@ function start(){
     setkopfseile(teilne, kunden_nr, prakti, mona, jahr)
     setdates(jahr,mona,anf,ende)
     create_table (jahr, mona, tag, anf, ende)
+    console.log(my_list)
 }
 
 function menu_safe(){
     document.getElementById('menus').style.display = 'block';
     let zeile =  event.target.innerHTML ;
-    let id_b = document.getElementById( 'beginn' + zeile).innerHTML;
-    let id_e = document.getElementById( 'ende' + zeile).innerHTML;
-
+    let id_b = my_list[zeile-1].uhr1;
+    let id_e = my_list[zeile-1].uhr2;
+    let id_bem = my_list[zeile-1].bem;
 
     let htmlstring = '<table><tr>';
         htmlstring += '<th>Beginn</th>';
@@ -142,7 +192,7 @@ function menu_safe(){
         htmlstring += '</tr>'
         htmlstring += '<tr>'
         htmlstring += '<td>Bemerkung</td>'
-        htmlstring += '<td ><input type="text" id="menu_bem" ></td>';
+        htmlstring += '<td ><input type="text" id="menu_bem" value="'+ id_bem + '" ></td>';
         htmlstring += '</tr>'
         htmlstring += '</tr></table>';
         htmlstring += '<input type="button" onclick="my_list[' + (zeile-1) + '].change_my_list()" value="save">';
