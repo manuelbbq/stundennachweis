@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Konfiguration</title>
+</head>
+<body>
+<form action="/stundennachweis.html">
+  <label for="teilnehmer" >Teilnehmer </label>
+  <input type="text" id = "teilnehmer" name="teil"><br>
+  <label for="Praktikumsstelle" >Praktikumsstelle </label>
+  <input type="text" id = "Praktikumsstelle" name="prak"><br>
+  <label for="kunden_nr" >Kunden Nummer </label>
+  <input type="text" id = "kunden_nr"><br>
+  <label for="jahr" >Jahr </label>
+  <input type="text" id = "Jahr"><br>
+  <label for="monat" >Monat </label>
+  <input type="text" id = "monat"><br>
+  <label for="anfang" >Arbeitsbeginn </label>
+  <input type="time" id = "anfang"><br>
+  <label for="ende" >Arbeitsende </label>
+  <input type="time" id = "ende"><br>
+  <label for="pause" >Pasue in Minuten </label>
+  <input type="number" id = "pause"><br>
+  <input type="button" value="go" ><br>
+</form>
+  <button onclick="make_json()">teest</button>
+  <p id = "test"></p>
+
+
+
+
+
+
+
+<script>
+  function make_json() {
+    let teil = document.getElementById("teilnehmer").value;
+    let prak = document.getElementById("Praktikumsstelle").value;
+    let ku_nr = document.getElementById("kunden_nr").value;
+    let jahr = document.getElementById("Jahr").value;
+    let mon = document.getElementById("monat").value;
+    let anf = document.getElementById("anfang").value;
+    let ende = document.getElementById("ende").value;
+    let pause = document.getElementById("pause").value;
+    // const myjason = '['+ teil +',"esel"]'
+    const myjason = '["' + teil + '","' + prak + '","' + ku_nr + '","' + jahr + '","' + mon + '","' + anf + '","' + ende + '","' + pause + '"]';
+    const myarray = JSON.parse(myjason);
+    document.getElementById("test").innerHTML = myarray;
+    // alert('test');
+  }
+</script>
+
+
+
+</body>
+</html>
