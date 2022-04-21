@@ -1,18 +1,31 @@
 
     body{
         width: 18cm;
-        padding-right: 2cm;
-        padding-left: 2cm;
+        padding-right: 1.5cm;
+        padding-left: 1.5cm;
         padding-top: 1cm;
     }
     #menus {
           position: absolute;
-          background: lightgray;
-          height: 5cm;
-          width: 10cm;
+          background: lightblue;
+          height: 5.3cm;
+          width: 13cm;
           left: 8cm;
           top: 10cm;
         display: none;
+        border-radius: 20px;
+        padding: 5px;
+    }
+    .menu_in{
+        background-color: lightblue;
+        border: none;
+        border-width:0px;
+        border:none;
+        outline:none;
+    }
+    #menu_table{
+        border: none;
+
     }
     #kopf{
         width: 18cm;
@@ -44,18 +57,25 @@
     }
     #tab, th, td {
         border: 1px ;
-        border-style: dotted;
-        border-bottom-color: rgb(243,243,243);
+
         border-collapse: collapse;
+        border-style: solid;
     }
     td{
-        text-align: left;
-        padding-left: 8px;
+        text-align: center;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-bottom-color: rgb(243,243,243);
+
     }
     th {
         background-color: rgb(243,243,243);
-        text-align: left;
-        padding-left: 8px;
+        text-align: center;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-bottom-color: rgb(243,243,243);
+
+
     }
     .minus {
         text-align: center;
@@ -85,8 +105,21 @@
         width: 4cm;
 
     }
-
-
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px;
+        border-radius: 12px;
+    }
+    #cancel_but{
+        background-color: orangered;
+    }
 
     #fo{
         color: white;

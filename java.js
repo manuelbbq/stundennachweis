@@ -79,20 +79,14 @@ class Datensatz{
 
         let feier = false;
         for (let x of fdate) {
-            //     console.log('feier ' + x)
-            // console.log(day)
-
             if (x.valueOf() == day.valueOf()) {
                 feier = true;
-                this.bem = 'feiertag'
+                this.bem = ''
             }
 
         }
 
         if (day.getDay() == 6 || day.getDay() == 0 || feier == true) {
-            // this.uhr1 = '-' ;
-            // this.uhr2 = '-' ;
-
             return true
 
         } else {
@@ -105,7 +99,6 @@ class Datensatz{
     //ändern des Objektes durch daten vom Menu
     change_my_list(){
         this.anf = document.getElementById('menu_anf').value;
-        console.log(this.anf)
         this.ende = document.getElementById('menu_end').value;
         this.bem = document.getElementById('menu_bem').value;
         this.feiertag = false;
@@ -114,7 +107,7 @@ class Datensatz{
         document.getElementById('menus').style.display = 'none';
     }
 // Erstellen der HTML für das Objekt
-    datensatz(){
+    html_eintrag(){
         let uhr1 , uhr2 , stunden ;
         let day = this.set_anf_date();
         let day_end = this.set_end_date();
@@ -156,23 +149,23 @@ function setdates(jahr, mona, anf, ende, pause){
 function create_table (){
     // document.getElementById("tab").innerHTML= ""
     let htmlstring = '<tr>';
-    htmlstring += '<th className="s1">Tag</th>';
-    htmlstring += '<th className="s2">Arbeitsbeginn</th>';
-    htmlstring += '<th className="s3"></th>';
-    htmlstring += '<th className="s4">Arbeitsende</th>';
-    htmlstring += '<th className="s5">Zeitstunden</th>';
-    htmlstring += '<th className="s6">Bemerkung</th>';
-    htmlstring += '<th className="s7">Vermerk durch BBQ</th>';
+    htmlstring += '<th class="s1">Tag</th>';
+    htmlstring += '<th class="s2">Arbeitsbeginn</th>';
+    htmlstring += '<th class="s3"></th>';
+    htmlstring += '<th class="s4">Arbeitsende</th>';
+    htmlstring += '<th class="s5">Zeitstunden</th>';
+    htmlstring += '<th class="s6">Bemerkung</th>';
+    htmlstring += '<th class="s7">Vermerk durch BBQ</th>';
     htmlstring += '</tr>';
     document.getElementById("tab").innerHTML = htmlstring
 
     for (let x of my_list) {
-        x.datensatz();
+        x.html_eintrag();
 
     }
 }
 
-// functio für onload
+// function für onload
 function start(){
     setkopfseile(teilne, kunden_nr, prakti, mona, jahr)
     setdates(jahr,mona,anf,ende, pause)
@@ -197,22 +190,22 @@ function menu_safe(){
     let id_pause = my_list[zeile -1].pause;
     console.log(id_day);
     let htmlstring = '<h1>'+ id_day +'</h1>';
-        htmlstring += '<table><tr>';
-        htmlstring += '<th>Beginn</th>';
-        htmlstring += '<th>Ende</th>';
-        htmlstring += '<th>Pause</th></tr>';
+        htmlstring += '<table id ="menu_table"><tr>';
+        htmlstring += '<th class="menu_in">Beginn</th>';
+        htmlstring += '<th class="menu_in">Ende</th>';
+        htmlstring += '<th class="menu_in">Pause</th></tr>';
         htmlstring += '<tr>';
-        htmlstring += '<td><input id="menu_anf" type="time" value="'+ id_b +'"></td>';
-        htmlstring += '<td><input id="menu_end" type="time" value="'+ id_e +'"></td>';
-        htmlstring += '<td><input id="menu_pause" type="text" value="'+ id_pause +'"></td>';
+        htmlstring += '<td><input class="menu_in" id="menu_anf" type="time" value="'+ id_b +'"></td>';
+        htmlstring += '<td><input class="menu_in" id="menu_end" type="time" value="'+ id_e +'"></td>';
+        htmlstring += '<td><input class="menu_in" id="menu_pause" type="text" value="'+ id_pause +'"></td>';
         htmlstring += '</tr>'
         htmlstring += '<tr>'
-        htmlstring += '<td>Bemerkung</td>'
-        htmlstring += '<td ><input type="text" id="menu_bem" value="'+ id_bem + '" ></td>';
+        htmlstring += '<td class="menu_in" >Bemerkung</td>'
+        htmlstring += '<td ><input class="menu_in" type="text" id="menu_bem" value="'+ id_bem + '" ></td>';
         htmlstring += '</tr>'
         htmlstring += '</tr></table>';
-        htmlstring += '<input type="button" onclick="chan(' + (zeile-1) + ')" value="save">';
-        htmlstring += '<input type="button" onclick="document.getElementById(\'menus\').style.display = \'none\';" value="cancel">';
+        htmlstring += '<input type="button" class="button" onclick="chan(' + (zeile-1) + ')" value="save">';
+        htmlstring += '<input type="button" class="button" id="cancel_but" onclick="document.getElementById(\'menus\').style.display = \'none\';" value="cancel">';
 
     // console.log(my_list);<td>
     document.getElementById("menus").innerHTML = htmlstring;
